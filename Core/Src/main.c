@@ -27,7 +27,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "errorstringifyFRresult.h"
+#include "sdTESTS.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -48,8 +49,6 @@
 
 /* USER CODE BEGIN PV */
   FRESULT fres;
-  uint16_t raw_temp;
-  float temp_c;
   char log_path[] = "/TEST.TXT";
   char buf[20];                             /* File read buffer */
 /* USER CODE END PV */
@@ -57,8 +56,7 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-FRESULT AppendToFile(char* path, size_t path_len, char* msg, size_t msg_len);
-void printError(FRESULT errornumber);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -164,120 +162,7 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 
-// print error trough uart
-void printError(FRESULT errornumber){
-	  HAL_UART_Transmit(&huart3, "\n\r" ,sizeof("\n\r"), 100);
-	  HAL_Delay(10);
-	  switch (errornumber) {
-		case FR_OK:
-			HAL_UART_Transmit(&huart3,
-					"FR_OK = 0,/* (0) Succeeded */",
-					sizeof("FR_OK = 0,/* (0) Succeeded */"),
-					100);
-			break;
-		case FR_DISK_ERR:
-			HAL_UART_Transmit(&huart3,
-					"FR_DISK_ERR,/* (1) A hard error occurred in the low level disk I/O layer */",
-					sizeof("FR_DISK_ERR,/* (1) A hard error occurred in the low level disk I/O layer */"),
-					100);
-			break;
-		case FR_INT_ERR:
-			HAL_UART_Transmit(&huart3,
-					"FR_INT_ERR,/* (2) Assertion failed */",
-					sizeof("FR_INT_ERR,/* (2) Assertion failed */"),
-					100);
-			break;
-		case FR_NOT_READY:
-			HAL_UART_Transmit(&huart3,
-					"FR_NOT_READY,/* (3) The physical drive cannot work */",
-					sizeof("FR_NOT_READY,/* (3) The physical drive cannot work */"),
-					100);
-			break;
-		case FR_NO_FILE:
-			HAL_UART_Transmit(&huart3,
-					"FR_NO_FILE,/* (4) Could not find the file */",
-					sizeof("FR_NO_FILE,/* (4) Could not find the file */"),
-					100);
-			break;
-		case FR_NO_PATH:
-			HAL_UART_Transmit(&huart3,
-					"FR_NO_PATH,/* (5) Could not find the path */",
-					sizeof("FR_NO_PATH,/* (5) Could not find the path */"),
-					100);
-			break;
-		case FR_INVALID_NAME:
-			HAL_UART_Transmit(&huart3,
-					"FR_INVALID_NAME,/* (6) The path name format is invalid */",
-					sizeof("FR_INVALID_NAME,/* (6) The path name format is invalid */"),
-					100);
-			break;
-		case FR_DENIED:
-			HAL_UART_Transmit(&huart3,
-					"FR_DENIED,/* (7) Access denied due to prohibited access or directory full */",
-					sizeof("FR_DENIED,/* (7) Access denied due to prohibited access or directory full */"),
-					100);
-			break;
-		default:
-			HAL_UART_Transmit(&huart3,
-					"something else",
-					sizeof("something else"),
-					100);
-			break;
-	}
-}
 
-// Append string to file given at path
-FRESULT AppendToFile(char* path, size_t path_len, char* msg, size_t msg_len) {
-
-  FATFS fs;
-  FIL myFILE;
-  UINT testByte;
-  FRESULT stat;
-
-  // Bounds check on strings
-  if ( (path[path_len] != 0) || (msg[msg_len] != 0) ) {
-    return FR_INVALID_NAME;
-  }
-
-  // Re-initialize SD
-  if ( BSP_SD_Init() != MSD_OK ) {
-    return FR_NOT_READY;
-  }
-
-  // Re-initialize FATFS
-  if ( FATFS_UnLinkDriver(SDPath) != 0 ) {
-    return FR_NOT_READY;
-  }
-  if ( FATFS_LinkDriver(&SD_Driver, SDPath) != 0 ) {
-    return FR_NOT_READY;
-  }
-
-  // Mount filesystem
-  stat = f_mount(&fs, SDPath, 1);
-  if (stat != FR_OK) {
-    f_mount(0, SDPath, 0);
-    return stat;
-  }
-
-  // Open file for appending
-  stat = f_open(&myFILE, path, FA_WRITE | FA_OPEN_APPEND);
-  if (stat != FR_OK) {
-    f_mount(0, SDPath, 0);
-    return stat;
-  }
-
-  // Write message to end of file
-  stat = f_write(&myFILE, msg, msg_len, &testByte);
-  if (stat != FR_OK) {
-    f_mount(0, SDPath, 0);
-    return stat;
-  }
-
-  // Sync, close file, unmount
-  stat = f_close(&myFILE);
-  f_mount(0, SDPath, 0);
-  return stat;
-}
 /* USER CODE END 4 */
 
 /**
