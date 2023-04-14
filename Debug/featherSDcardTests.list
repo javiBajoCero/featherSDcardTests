@@ -7,19 +7,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         000089e0  08000188  08000188  00010188  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       000009d4  08008b68  08008b68  00018b68  2**2
+  2 .rodata       000009d0  08008b68  08008b68  00018b68  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  0800953c  0800953c  00020018  2**0
+  3 .ARM.extab    00000000  08009538  08009538  00020018  2**0
                   CONTENTS
-  4 .ARM          00000008  0800953c  0800953c  0001953c  2**2
+  4 .ARM          00000008  08009538  08009538  00019538  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .preinit_array 00000000  08009544  08009544  00020018  2**0
+  5 .preinit_array 00000000  08009540  08009540  00020018  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  08009544  08009544  00019544  2**2
+  6 .init_array   00000004  08009540  08009540  00019540  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .fini_array   00000004  08009548  08009548  00019548  2**2
+  7 .fini_array   00000004  08009544  08009544  00019544  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         00000018  20000000  0800954c  00020000  2**2
+  8 .data         00000018  20000000  08009548  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
   9 .ccmram       00000000  10000000  10000000  00020018  2**0
                   CONTENTS
@@ -616,8 +616,8 @@ void MX_DMA_Init(void)
  8000644:	40023800 	.word	0x40023800
 
 08000648 <printError>:
+
 #include "errorstringifyFRresult.h"
-#include "main.h"
 #include "usart.h"
 
   // print error trough uart
@@ -1133,8 +1133,8 @@ int main(void)
 	  HAL_Delay(1000);
  800096c:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8000970:	f000 fc0c 	bl	800118c <HAL_Delay>
-	  fres=AppendToFile(log_path, sizeof(log_path), "fran perea quien lo esedea", sizeof("fran perea quien lo esedea"));
- 8000974:	231b      	movs	r3, #27
+	  fres=AppendToFile(log_path, sizeof(log_path), "fran perea quien lo lea", sizeof("fran perea quien lo lea"));
+ 8000974:	2318      	movs	r3, #24
  8000976:	4a07      	ldr	r2, [pc, #28]	; (8000994 <main+0x4c>)
  8000978:	210a      	movs	r1, #10
  800097a:	4807      	ldr	r0, [pc, #28]	; (8000998 <main+0x50>)
@@ -1516,7 +1516,7 @@ __STATIC_FORCEINLINE void __disable_irq(void)
  8000c20:	bd90      	pop	{r4, r7, pc}
  8000c22:	bf00      	nop
  8000c24:	20000210 	.word	0x20000210
- 8000c28:	080090e8 	.word	0x080090e8
+ 8000c28:	080090e4 	.word	0x080090e4
 
 08000c2c <MX_SDIO_SD_Init>:
 DMA_HandleTypeDef hdma_sdio_tx;
@@ -2438,7 +2438,7 @@ LoopFillZerobss:
   ldr r1, =_edata
  8001094:	20000018 	.word	0x20000018
   ldr r2, =_sidata
- 8001098:	0800954c 	.word	0x0800954c
+ 8001098:	08009548 	.word	0x08009548
   ldr r2, =_sbss
  800109c:	20000018 	.word	0x20000018
   ldr r4, =_ebss
@@ -5107,7 +5107,7 @@ static uint32_t DMA_CalcBaseAndBitshift(DMA_HandleTypeDef *hdma)
  8001ef4:	4770      	bx	lr
  8001ef6:	bf00      	nop
  8001ef8:	aaaaaaab 	.word	0xaaaaaaab
- 8001efc:	080090e0 	.word	0x080090e0
+ 8001efc:	080090dc 	.word	0x080090dc
 
 08001f00 <DMA_CheckFifoParam>:
   * @param  hdma       pointer to a DMA_HandleTypeDef structure that contains
@@ -7117,7 +7117,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
  8002a3a:	bf00      	nop
  8002a3c:	40023c00 	.word	0x40023c00
  8002a40:	40023800 	.word	0x40023800
- 8002a44:	080090c8 	.word	0x080090c8
+ 8002a44:	080090c4 	.word	0x080090c4
  8002a48:	2000000c 	.word	0x2000000c
  8002a4c:	20000010 	.word	0x20000010
 
@@ -7372,7 +7372,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  8002c10:	4618      	mov	r0, r3
  8002c12:	bd80      	pop	{r7, pc}
  8002c14:	40023800 	.word	0x40023800
- 8002c18:	080090d8 	.word	0x080090d8
+ 8002c18:	080090d4 	.word	0x080090d4
 
 08002c1c <HAL_RCC_GetPCLK2Freq>:
   * @note   Each time PCLK2 changes, this function must be called to update the
@@ -7398,7 +7398,7 @@ uint32_t HAL_RCC_GetPCLK2Freq(void)
  8002c38:	4618      	mov	r0, r3
  8002c3a:	bd80      	pop	{r7, pc}
  8002c3c:	40023800 	.word	0x40023800
- 8002c40:	080090d8 	.word	0x080090d8
+ 8002c40:	080090d4 	.word	0x080090d4
 
 08002c44 <HAL_SD_Init>:
             SD_HandleTypeDef and create the associated handle.
@@ -14458,7 +14458,7 @@ void MX_FATFS_Init(void)
  8005528:	bf00      	nop
  800552a:	bd80      	pop	{r7, pc}
  800552c:	20000210 	.word	0x20000210
- 8005530:	080090e8 	.word	0x080090e8
+ 8005530:	080090e4 	.word	0x080090e4
  8005534:	2000020c 	.word	0x2000020c
 
 08005538 <get_fattime>:
@@ -18504,7 +18504,7 @@ int cmp_lfn (				/* 1:matched, 0:not matched */
  8006cee:	46bd      	mov	sp, r7
  8006cf0:	bd90      	pop	{r4, r7, pc}
  8006cf2:	bf00      	nop
- 8006cf4:	0800917c 	.word	0x0800917c
+ 8006cf4:	08009178 	.word	0x08009178
 
 08006cf8 <put_lfn>:
 	const WCHAR* lfn,	/* Pointer to the LFN */
@@ -18628,7 +18628,7 @@ int cmp_lfn (				/* 1:matched, 0:not matched */
  8006dbe:	46bd      	mov	sp, r7
  8006dc0:	bd80      	pop	{r7, pc}
  8006dc2:	bf00      	nop
- 8006dc4:	0800917c 	.word	0x0800917c
+ 8006dc4:	08009178 	.word	0x08009178
 
 08006dc8 <gen_numname>:
 	BYTE* dst,			/* Pointer to the buffer to store numbered SFN */
@@ -19794,9 +19794,9 @@ FRESULT create_name (	/* FR_OK: successful, FR_INVALID_NAME: could not create */
 		if (!w) break;					/* Break on end of the LFN */
  8007560:	bf00      	nop
  8007562:	e006      	b.n	8007572 <create_name+0x2da>
- 8007564:	08009080 	.word	0x08009080
- 8007568:	080090fc 	.word	0x080090fc
- 800756c:	0800908c 	.word	0x0800908c
+ 8007564:	0800907c 	.word	0x0800907c
+ 8007568:	080090f8 	.word	0x080090f8
+ 800756c:	08009088 	.word	0x08009088
 			if (si > di) break;			/* No extension */
  8007570:	bf00      	nop
 	}
@@ -22786,7 +22786,7 @@ WCHAR ff_convert (	/* Converted character, Returns zero on error */
  80089d8:	f85d 7b04 	ldr.w	r7, [sp], #4
  80089dc:	4770      	bx	lr
  80089de:	bf00      	nop
- 80089e0:	0800918c 	.word	0x0800918c
+ 80089e0:	08009188 	.word	0x08009188
 
 080089e4 <ff_wtoupper>:
 
@@ -22946,8 +22946,8 @@ WCHAR ff_wtoupper (	/* Returns upper converted character */
  8008ae8:	f85d 7b04 	ldr.w	r7, [sp], #4
  8008aec:	4770      	bx	lr
  8008aee:	bf00      	nop
- 8008af0:	0800928c 	.word	0x0800928c
- 8008af4:	08009480 	.word	0x08009480
+ 8008af0:	08009288 	.word	0x08009288
+ 8008af4:	0800947c 	.word	0x0800947c
 
 08008af8 <__libc_init_array>:
  8008af8:	b570      	push	{r4, r5, r6, lr}
@@ -22975,10 +22975,10 @@ WCHAR ff_wtoupper (	/* Returns upper converted character */
  8008b2a:	4798      	blx	r3
  8008b2c:	3601      	adds	r6, #1
  8008b2e:	e7f2      	b.n	8008b16 <__libc_init_array+0x1e>
- 8008b30:	08009544 	.word	0x08009544
- 8008b34:	08009544 	.word	0x08009544
- 8008b38:	08009544 	.word	0x08009544
- 8008b3c:	08009548 	.word	0x08009548
+ 8008b30:	08009540 	.word	0x08009540
+ 8008b34:	08009540 	.word	0x08009540
+ 8008b38:	08009540 	.word	0x08009540
+ 8008b3c:	08009544 	.word	0x08009544
 
 08008b40 <memset>:
  8008b40:	4402      	add	r2, r0

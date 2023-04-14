@@ -106,7 +106,7 @@ int main(void)
   while (1)
   {
 	  HAL_Delay(1000);
-	  fres=AppendToFile(log_path, sizeof(log_path), "fran perea quien lo esedea", sizeof("fran perea quien lo esedea"));
+	  fres=AppendToFile(log_path, sizeof(log_path), "fran perea quien lo lea", sizeof("fran perea quien lo lea"));
 	  printError(fres);
     /* USER CODE END WHILE */
 

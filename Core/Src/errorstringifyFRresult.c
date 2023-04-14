@@ -7,7 +7,6 @@
 
 
 #include "errorstringifyFRresult.h"
-#include "main.h"
 #include "usart.h"
 
   // print error trough uart
