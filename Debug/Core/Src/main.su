@@ -1,0 +1,5 @@
+../Core/Src/main.c:73:5:main	8	static
+../Core/Src/main.c:124:6:SystemClock_Config	88	static
+../Core/Src/main.c:168:6:printError	16	static
+../Core/Src/main.c:230:9:AppendToFile	8336	static
+../Core/Src/main.c:287:6:Error_Handler	4	static,ignoring_inline_asm
