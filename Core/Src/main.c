@@ -50,7 +50,9 @@
 /* USER CODE BEGIN PV */
   FRESULT fres;
   char log_path[] = "/TEST.TXT";
-  char buf[20];                             /* File read buffer */
+  char buf[20];
+  char msg[]="fran perea quien lo lea";
+  /* File read buffer */
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -106,7 +108,7 @@ int main(void)
   while (1)
   {
 	  HAL_Delay(1000);
-	  fres=AppendToFile(log_path, sizeof(log_path), "fran perea quien lo lea", sizeof("fran perea quien lo lea"));
+	  fres=AppendToFile(log_path, sizeof(log_path), msg, sizeof(msg));
 	  printError(fres);
     /* USER CODE END WHILE */
 
