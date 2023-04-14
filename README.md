@@ -1,5 +1,5 @@
 # featherSDcardTests
-Trying to finally make SD cards work in SDIO mode, WHY IN THE WORLD IS IT SO DIFICUT
+Trying to finally make SD cards work in SDIO mode, WHY IN THE WORLD IS IT SO DIFICUT 2023!!! we have AI!!
 
 ### Hardware files 
 Forked Adafruit repo https://github.com/javiBajoCero/Adafruit-Feather-STM32F405-Express-PCB    
